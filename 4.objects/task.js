@@ -2,7 +2,6 @@ function Student(name, gender, age) {
     this.name = name;
     this.gender = gender;
     this.age = age;
-    this.subject = null;
     this.marks = [];
   }
   
@@ -11,13 +10,13 @@ function Student(name, gender, age) {
   };
   
   Student.prototype.addMarks = function (...marksToAdd) {
-    if (this.subject && !this.excluded) {
+    if (this.subject && this.marks !== undefined) {
       this.marks.push(...marksToAdd);
     }
   };
   
   Student.prototype.getAverage = function () {
-    if (!this.marks || this.marks.length === 0 || this.excluded) {
+    if (!this.marks || this.marks.length === 0) {
       return 0;
     }
   
@@ -43,4 +42,5 @@ function Student(name, gender, age) {
   student2.setSubject("Geometry");
   student2.exclude('плохая учёба');
   console.log(student2);
+  
   
