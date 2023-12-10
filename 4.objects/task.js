@@ -1,53 +1,35 @@
 function Student(name, gender, age) {
-this.name = name;
-this.gender = gender;
-this.age = age;
+  this.name = name;
+  this.gender = gender;
+  this.age = age;
+  this.marks = [];
 }
-let student1 = new Student("Makhmud", "male", "25");
-let student2 = new Student("Ahmed", "male", "23");
-let student3 = new Student("Ramzan", "male", "17");
-let student4 = new Student("Fatima", "female", "22");
+let student1 = new Student("Василиса", "Женский", 19);
+let student2 = new Student("Артем", "Мужской", 25);
 
-
-Student.prototype.setSubject = function(subjectName) {
-this.subject = subjectName;
+Student.prototype.setSubject = function (subjectName) {
+  this.subject = subjectName;
 }
 
-Student.prototype.addMark = function(mark) {
-if(this.marks === undefined){
-this.marks = [mark];
-} else {
-  this.marks.push(mark);
-}
-}
-Student.prototype.addMarks = function(...marks) {
-if (this.marks === undefined) {
-  this.marks = [...marks];
-} else {
-  this.marks.push(...marks);
-}
-}
-
-Student.prototype.getAverage = function () {
-  return this.marks.reduce((a, b) => a + b, 0) / this.marks.length;
-}
-
-Student.prototype.exclude = function (reason) {
-delete this.subject;
-delete this.marks;
-this.excluded = reason;
-}
-
-Student.prototype.getAverage = function (){
-  if (this.marks === undefined) {
-    return null}
-    else { 
-      return (this.marks.reduce ((previous, next) => previous + next))/this.marks.length
+Student.prototype.addMarks = function (...marksToAdd) {
+  if(this.marks !== undefined) {
+    this.marks.push(...marksToAdd);
   }
 }
 
+Student.prototype.getAverage = function (...marksToAdd) {
+  let sum = 0;
+  if(this.marks === undefined || this.marks.length === 0) {
+    return 0;
+  } 
+  for(let i = 0; i < this.marks.length; i++) {
+    sum += this.marks[i];
+  }
+  return sum / this.marks.length;
+}
+
 Student.prototype.exclude = function (reason) {
-  delete this.marks
-  delete this.subject
+  delete this.subject;
+  delete this.marks;
   this.excluded = reason;
 }
