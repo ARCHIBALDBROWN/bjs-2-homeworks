@@ -2,24 +2,37 @@ function Student(name, gender, age) {
   this.name = name;
   this.gender = gender;
   this.age = age;
-  this.marks = [];
 }
+
+let artem = new Student("Артем", "муж", 29)
+let petya = new Student("Петя", "муж", 33)
 
 Student.prototype.setSubject = function (subjectName) {
   this.subject = subjectName;
 };
 
-Student.prototype.addMarks = function (...marksToAdd) {
-  this.marks.push(...marksToAdd);
+Student.prototype.addMark = function (mark) {
+  if (this.marks === undefined) {
+    this.marks = [];
+    this.marks.push(mark);
+  } else {
+    this.marks.push(mark);
+  }
+};
+
+Student.prototype.addMarks = function ( ...args) {
+  if (this.marks === undefined) {
+    this.marks = [];
+    args.map(el => this.marks.push(el));
+  } else {
+    args.map(el => this.marks.push(el));
+  }
 };
 
 Student.prototype.getAverage = function () {
-  if (this.marks === undefined || this.marks.length === 0) {
-      return 0;
-  }
-
-  const sum = this.marks.reduce((acc, mark) => acc + mark, 0);
-  return sum / this.marks.length;
+  let sum = this.marks.reduce((sum, current) => sum + current)  
+  this.mediumAriphetic = sum / this.marks.length // для окргление в не рамок задания Number((sum / this.marks.length).toFixed(2))
+  return this.mediumAriphetic
 };
 
 Student.prototype.exclude = function (reason) {
@@ -27,19 +40,19 @@ Student.prototype.exclude = function (reason) {
   delete this.marks;
   this.excluded = reason;
 };
+                 
 
-let student1 = new Student("Василиса", "женский", 19);
-student1.setSubject("Algebra");
-console.log(student1.getAverage());
-student1.addMarks(4, 5, 4, 5);
-console.log(student1.getAverage());
-console.log(student1);
+artem.addMark(5);
+artem.addMark(4);
+artem.addMarks(4,4,3,5,4,3,4);
+artem.getAverage();
+artem.exclude("балбес");
 
-let student2 = new Student("Артём", "мужской", 25);
-student2.setSubject("Geometry");
-student2.exclude('плохая учёба');
-console.log(student2);
+petya.addMark(2);
+petya.addMark(3);
+petya.addMarks(2,3,2,2,2,3,2);
+petya.getAverage();
+petya.exclude("плохая успеваемость");
 
-
-  
-  
+console.log(artem);
+console.log(petya);
