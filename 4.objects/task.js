@@ -21,7 +21,7 @@ Student.prototype.addMarks = function (...marksToAdd) {
 Student.prototype.getAverage = function () {
   let sum = 0;
   if (this.marks === undefined || this.marks.length === 0) {
-    return null; // Change from 0 to null
+    return null;
   }
   for (let i = 0; i < this.marks.length; i++) {
     sum += this.marks[i];
@@ -34,4 +34,3 @@ Student.prototype.exclude = function (reason) {
   this.marks = undefined;
   this.excluded = reason;
 }
-
