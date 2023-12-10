@@ -10,9 +10,7 @@ Student.prototype.setSubject = function (subjectName) {
 };
 
 Student.prototype.addMarks = function (...marksToAdd) {
-  if (this.subject !== undefined && this.marks !== undefined) {
-      this.marks.push(...marksToAdd);
-  }
+  this.marks.push(...marksToAdd);
 };
 
 Student.prototype.getAverage = function () {
@@ -41,6 +39,7 @@ let student2 = new Student("Артём", "мужской", 25);
 student2.setSubject("Geometry");
 student2.exclude('плохая учёба');
 console.log(student2);
+
 
   
   
