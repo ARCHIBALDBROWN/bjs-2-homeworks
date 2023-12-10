@@ -1,57 +1,100 @@
-class Student {
-    constructor(name) {
-      this.name = name;
-      this.marks = {};
-    }
+class PrintEditionItem {
+  constructor (name, releaseDate, pagesCount) {
+  this.name = name
+  this.releaseDate = releaseDate
+  this.pagesCount = pagesCount
+  this.state = 100
+  this.type = null
+  }
   
-    addMark(mark, subject) {
-      if (mark < 2 || mark > 5) {
-        console.log("Оценка должна быть не меньше 2 и не больше 5.");
-        return;
-      }
-  
-      if (!this.marks[subject]) {
-        this.marks[subject] = [];
-      }
-  
-      this.marks[subject].push(mark);
-    }
-  
-    getAverageBySubject(subject) {
-      const subjectMarks = this.marks[subject];
-      if (!subjectMarks || subjectMarks.length === 0) {
-        console.log(`По предмету ${subject} нет оценок.`);
-        return 0;
-      }
-  
-      const sum = subjectMarks.reduce((acc, mark) => acc + mark, 0);
-      return sum / subjectMarks.length;
-    }
-  
-    getAverage() {
-      const subjects = Object.keys(this.marks);
-  
-      if (subjects.length === 0) {
-        console.log("Нет предметов с оценками.");
-        return 0;
-      }
-  
-      const sum = subjects.reduce((acc, subject) => {
-        return acc + this.getAverageBySubject(subject);
-      }, 0);
-  
-      return sum / subjects.length;
-    }
+  fix() {
+    this.state = this.state * 1.5 
   }
 
-  const student = new Student("Олег Никифоров");
-  student.addMark(5, "химия");
-  student.addMark(5, "химия");
-  student.addMark(5, "физика");
-  student.addMark(4, "физика");
-  student.addMark(6, "физика"); 
+ 
+  set state(state) {
+    if(state >= 100){
+       this._state = 100;
+    }
+    else if(state <= 0){
+       return this._state = 0;
+    } else return this._state = state; 
+    
+  }
+
+  get state() {
+    return this._state;
+  }
   
-  console.log("Средний балл по предмету физика:", student.getAverageBySubject("физика")); 
-  console.log("Средний балл по предмету биология:", student.getAverageBySubject("биология")); 
-  console.log("Средний балл по всем предметам:", student.getAverage()); 
-  
+}
+
+class Magazine extends PrintEditionItem {
+constructor (name, releaseDate, pagesCount) {
+super (name, releaseDate, pagesCount)
+this.type = "magazine"
+}
+}
+
+class Book extends PrintEditionItem {
+constructor (author, name, releaseDate, pagesCount) {
+super (name, releaseDate, pagesCount)
+this.type = "book"
+this.author = author
+}
+}
+
+class NovelBook extends Book {
+constructor (author, name, releaseDate, pagesCount) {
+super (author, name, releaseDate, pagesCount)
+this.type = "novel"
+}
+}
+
+class FantasticBook extends Book {
+constructor (author, name, releaseDate, pagesCount ) {
+super (author, name, releaseDate, pagesCount)
+this.type = "fantastic"
+}
+}
+
+class DetectiveBook extends Book {
+constructor (author, name, releaseDate, pagesCount) {
+super (author, name, releaseDate, pagesCount)
+this.type = "detective"
+}
+}
+
+class Library {
+constructor (name) {
+  this.name = name
+  this.books = []
+}
+
+addBook(book) {
+  if (book.state > 30) {
+    this.books.push (book)
+  }
+}
+
+findBookBy(type, value) {
+  let book = null
+    for (let i = 0; i < this.books.length; i++) {
+      if(this.books[i][type]===value) {
+         book = this.books[i];
+          break;
+      }
+    }
+      return book;  
+}
+giveBookByName(bookName) {
+  let book = null
+    for (let i = 0; i < this.books.length; i++) {
+      if(this.books[i].name === bookName) {
+          book = this.books[i];  
+          this.books.splice(book,1)
+          break
+      } 
+    }
+      return book;
+} 
+}
