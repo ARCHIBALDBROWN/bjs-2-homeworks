@@ -1,57 +1,57 @@
-﻿// Задача 1
+﻿// Задание 1
 
-function parseCount(number) {
-    let parse = Number.parseInt(number, 10);
-    if (isNaN(parse)) {
-      throw new Error("Невалидное значение");
+function parseCount(namber){ 
+    if(Number.isNaN(Number.parseFloat(namber))){ 
+         throw new Error("Невалидное значение");
     }
-    return parse;
+    return parseFloat(namber);
 }
 
-function validateCount(number) {
+function validateCount(namber){ 
     try {
-        return parseCount(number);
-    } catch (error) {
-        return error;
-    }
+        return parseCount(namber);
+    } catch (error) { 
+        return error; 
+    }   
 }
 
-// Задача 2
+
+// Задание 2
+
 class Triangle {
-    constructor(side1, side2, side3) {
-        if ((side1 > (side2 + side3)) || (side2 > (side1 + side3)) || (side3 > (side1 + side2))) {
+    constructor (a, b, c) {
+        if(a + b < c || a + c < b || b + c < a){
             throw new Error("Треугольник с такими сторонами не существует");
         }
 
-        this.side1 = side1;
-        this.side2 = side2;
-        this.side3 = side3;
+        this.a = a;
+        this.b = b;
+        this.c = c;
     }
 
-    getPerimeter() {
-        return this.side1 + this.side2 + this.side3;
+    get perimeter(){
+        return this.a + this.b + this.c;
     }
 
-    getArea() {
-        const semiPerimeter = this.getPerimeter() / 2;
-        let area = Math.sqrt(semiPerimeter * (semiPerimeter - this.side1) * (semiPerimeter - this.side2) * (semiPerimeter - this.side3));
-        return Number(area.toFixed(3));
+    get area(){
+        let p = this.perimeter / 2;
+        let s = Math.sqrt(p * (p - this.a) * (p - this.b) * (p - this.c));
+
+        return +s.toFixed(3);    
     }
 }
 
-function getTriangle(side1, side2, side3) {
+function getTriangle(a, b, c){
     try {
-        let triangle = new Triangle(side1, side2, side3);
-        return triangle;
+        return new Triangle(a, b, c);
     } catch (error) {
         return {
-            getPerimeter() {
-                return "Ошибка! Треугольник не существует";
+            get area(){
+                return "Ошибка! Треугольник не существует"
             },
-
-            getArea() {
-                return "Ошибка! Треугольник не существует";
-            },
-        };
+            get perimeter(){
+                return "Ошибка! Треугольник не существует"
+            }
+        }
     }
 }
