@@ -1,4 +1,22 @@
-﻿// Задача 2
+﻿// Задача 1
+
+function parseCount(number) {
+    let parse = Number.parseInt(number, 10);
+    if (isNaN(parse)) {
+      throw new Error("Невалидное значение");
+    }
+    return parse;
+}
+
+function validateCount(number) {
+    try {
+        return parseCount(number);
+    } catch (error) {
+        return error;
+    }
+}
+
+// Задача 2
 class Triangle {
     constructor(side1, side2, side3) {
         if ((side1 > (side2 + side3)) || (side2 > (side1 + side3)) || (side3 > (side1 + side2))) {
