@@ -1,11 +1,11 @@
 ﻿// Задача 1
 
 function parseCount(value) {
-    let parsedValue = Number.parseInt(value);
+    let parsedValue = Number.parseFloat(value);
     if (isNaN(parsedValue)) {
-      throw new Error("Невалидное значение");
+        throw new Error("Невалидное значение");
     } else {
-      return parsedValue;
+        return parsedValue;
     }
 }
 
@@ -30,12 +30,12 @@ class Triangle {
         }
     }
 
-    getPerimeter() {
+    get perimeter() {
         return this.firstLine + this.secondLine + this.thirdLine;
     }
 
-    getArea() {
-        let p = this.getPerimeter() * 0.5;
+    get area() {
+        let p = this.perimeter * 0.5;
         let square = Math.sqrt(p * (p - this.firstLine) * (p - this.secondLine) * (p - this.thirdLine));
         return Number(square.toFixed(3));
     }
@@ -46,10 +46,10 @@ function getTriangle(firstLine, secondLine, thirdLine) {
         return new Triangle(firstLine, secondLine, thirdLine);
     } catch (error) {
         return {
-            getArea() {
+            get area() {
                 return "Ошибка! Треугольник не существует";
             },
-            getPerimeter() {
+            get perimeter() {
                 return "Ошибка! Треугольник не существует";
             }
         };
